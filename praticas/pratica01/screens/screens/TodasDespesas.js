@@ -1,9 +1,9 @@
 import { Text } from "react-native";
+import DespesaSaída from "../components/DespesaSaida";
+import { DUMMY_DESPESAS } from "../constants/DummyDespesas";
 
 function TodasDespesas() {
-    return (
-        <Text>Todas Despesas</Text>
-    )
+  return <DespesaSaída despesas={DUMMY_DESPESAS} periodo="Todos" />;
 }
 
 export default TodasDespesas;

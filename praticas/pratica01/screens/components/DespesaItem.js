@@ -1,0 +1,40 @@
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { getFormattedDate } from "../utils/getFormattedDate";
+
+function DespesaItem({ item }) {
+  return (
+    <Pressable>
+      <View style={styles.itemContainer}>
+        <View style={styles.itemText}>
+          <Text>{getFormattedDate(item.data)}</Text>
+        </View>
+        <View style={styles.itemText}>
+          <Text>{item.descricao}</Text>
+        </View>
+        <View style={styles.itemText}>
+          <Text>{item.valor}</Text>
+        </View>
+      </View>
+    </Pressable>
+  );
+}
+
+export default DespesaItem;
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    flex: 1,
+    padding: 5,
+    marginVertical: 5,
+    marginHorizontal: 5,
+    backgroundColor: "lightgray",
+    flexDirection: "row",
+  },
+  itemText: {
+    flex: 1,
+    padding: 2,
+    marginVertical: 2,
+    marginHorizontal: 2,
+    alignContent: "left",
+  },
+});
