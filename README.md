@@ -23,10 +23,10 @@ As atividades seguem um fluxo de trabalho profissional baseado no modelo [GitFlo
 1. **Criar Repositório**: Clique no botão verde `Use this template`, no topo desta página, e escolha `Create a new repository` para criar a sua cópia.
 2. **Clonar Repositório**: Faça o clone do *seu* repositório para a sua máquina:
 ```bash
-git clone [https://github.com/SEU_USUARIO/NOME_DO_SEU_REPOSITORIO.git](https://github.com/SEU_USUARIO/NOME_DO_SEU_REPOSITORIO.git)
+git clone https://github.com/SEU_USUARIO/NOME_DO_SEU_REPOSITORIO.git
 ```
 
-### 2.Configurar Git: Certifique-se de que seu nome e e-mail estão corretos:
+### 2. Configurar Git: Certifique-se de que seu nome e e-mail estão corretos:
 ```bash
 git config --global user.name "Seu Nome"
 git config --global user.email "seu@email.com"
@@ -39,26 +39,22 @@ Para cada nova funcionalidade do nosso App, siga este fluxo:
 ```bash
 git checkout -b feature/praticaXX
 ```
-3. Rode o Projeto: Acesse a pasta correspondente, instale as dependências e inicie o Expo:
+3. **Rode o Projeto:** Acesse a pasta correspondente, instale as dependências e inicie o Expo:
 ```bash
 npm install
 npx expo start
 ```
-4. Desenvolva e Teste: Escreva o código solicitado na prática e teste no seu celular usando o Expo Go.
-5. Salve e Envie (Commit & Push):
+4. **Desenvolva e Teste:** Escreva o código solicitado na prática e teste no seu celular usando o Expo Go.
+5. **Salve e Envie (Commit & Push):**
 ```bash
 git add .
 git commit -m "Feat: Finaliza a implementação da Prática XX"
 git push origin feature/praticaXX
 ```
-6. Solicite a Revisão (Pull Request): No GitHub, abra um Pull Request da sua branch feature/praticaXX para a branch principal.
+6. **Solicite a Revisão (Pull Request):** No GitHub, abra um Pull Request da sua branch feature/praticaXX para a branch principal.
 
-- ⚠️ Atenção!
-- Se o check ✅ não aparecer no `Pull Request`, há erros que precisam ser corrigidos antes da avaliação.
+- ⚠️ **Atenção!**
+- Se o check ✅ não aparecer no `Pull Request`, há erros que precisam ser corrigidos antes da entrega final.
 
-## Feedback e Avaliação
-Envie o link do seu Pull Request pela plataforma de ensino. A avaliação usará o sistema de **Code Review:**
-- **Approve (Aprovado):** Código cumpre os requisitos. Faça o merge!
-- **Request Changes (Solicitação de Ajustes):** Há bugs ou melhorias necessárias. Corrija localmente, faça um novo commit e push na mesma branch, e avise no PR para nova revisão.
-
-
+## 📄 Licença
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
