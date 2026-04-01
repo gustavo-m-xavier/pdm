@@ -11,7 +11,7 @@ import IconButton from "./components/IconButton";
 export default function App() {
   const Tab = createBottomTabNavigator();
 
-  function bottomTabScreen() {
+  function BottomTabScreen() {
     const navigator = useNavigation();
 
     return (
@@ -63,7 +63,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name="Despesas"
-          component={bottomTabScreen}
+          component={BottomTabScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="GerenciarDespesa" component={GerenciarDespesa} />

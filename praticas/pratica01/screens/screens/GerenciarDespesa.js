@@ -15,7 +15,7 @@ function GerenciarDespesa() {
     setData(currentDate);
   };
 
-  handleChangeDescription = (text) => {
+  const handleChangeDescription = (text) => {
     setDescricao(text)
   }
 
