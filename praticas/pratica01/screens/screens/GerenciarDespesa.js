@@ -15,6 +15,10 @@ function GerenciarDespesa() {
     setData(currentDate);
   };
 
+  handleChangeDescription = (text) => {
+    setDescricao(text)
+  }
+
   const handleChangeValor = (text) => {
     const cleanedText = text.replace(/[^0-9]/g, "");
     const match = cleanedText.match(/^(\d{0,})(\d{0,2})$/);
@@ -32,7 +36,7 @@ function GerenciarDespesa() {
           style={styles.input}
           maxLength={20}
           value={descricao}
-          onChangeText={setDescricao}
+          onChangeText={handleChangeDescription}
         />
       </View>
 
