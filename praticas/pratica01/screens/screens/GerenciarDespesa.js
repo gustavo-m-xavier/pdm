@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-web";
+import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 function GerenciarDespesa() {
@@ -10,14 +9,10 @@ function GerenciarDespesa() {
 
   const [showPicker, setShowPicker] = useState(false);
   const onChange = (event, selectedDate) => {
-    currentDate = selectedDate || data;
+    const currentDate = selectedDate || data;
     setShowPicker(false);
     setData(currentDate);
   };
-
-  const handleChangeDescription = (text) => {
-    setDescricao(text)
-  }
 
   const handleChangeValor = (text) => {
     const cleanedText = text.replace(/[^0-9]/g, "");
@@ -36,7 +31,7 @@ function GerenciarDespesa() {
           style={styles.input}
           maxLength={20}
           value={descricao}
-          onChangeText={handleChangeDescription}
+          onChangeText={setDescricao}
         />
       </View>
 
