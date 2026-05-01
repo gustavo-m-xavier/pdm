@@ -8,8 +8,8 @@ import { colors } from "../constants/colors";
  *
  * @param {Object} props - Propriedades do componente.
  * @param {string} props.category - Chave da categoria em `categories` (ex.: "food", "income").
- *   Se o valor não existir em `categories` (dados legados ou inválidos), usa "food" como padrão
- *   para evitar crash ao acessar propriedades de `undefined`.
+ *   Se o valor não existir em `categories` (dados legados ou inválidos no AsyncStorage), usa
+ *   `categories.food` como padrão para evitar crash ao acessar propriedades de `undefined`.
  * @returns {JSX.Element} View com ícone Material centrado.
  */
 export default function CategoryItem({ category }) {
