@@ -1,6 +1,15 @@
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const adapter = new PrismaMariaDb({
+  host: "localhost",
+  user: "root",
+  password: "iesb",
+  port: 3306,
+  database: 'gestao_financeira',
+  connectionLimit: 5,
+});
+const prisma = new PrismaClient({adapter});
 
 const defaultCategories = [
   { name: "income",    displayName: "Renda",       icon: "work",                background: "#DE9AC3", isIncome: true,  isDefault: true },
