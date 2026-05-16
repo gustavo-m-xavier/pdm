@@ -54,6 +54,12 @@ const defaultCategories = [
   },
 ];
 
+const defaultUser = {
+  name: "Usuário Padrão",
+  email: "usuario.padrao@exemplo.com",
+  password: "senhaPadrao123",
+};
+
 async function main() {
   for (const c of defaultCategories) {
     await prisma.category.upsert({
@@ -62,6 +68,13 @@ async function main() {
       create: c,
     });
   }
+
+  await prisma.users.upsert({
+    where: { email: defaultUser.email },
+    update: {},
+    create: defaultUser,
+  });
+
   console.log("Seed concluído.");
 }
 
