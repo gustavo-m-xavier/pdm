@@ -1,16 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaMariaDb } from '@prisma/adapter-mariadb'
+import { PrismaClient } from "../../prisma/generated/client.ts";
+import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 
 /**
  * Instância única do PrismaClient compartilhada por toda a aplicação.
  * Criar várias instâncias abre conexões demais com o banco.
  */
 const adapter = new PrismaMariaDb({
-  host: "localhost",
-  user: "root",
-  password: "iesb",
+  host: "mysql",
+  user: "app_user",
+  password: "app_password",
   port: 3306,
-  database: 'gestao_financeira',
+  database: "gestao_financeira",
   connectionLimit: 5,
 });
-export const prisma = new PrismaClient({adapter});
+export const prisma = new PrismaClient({ adapter });
