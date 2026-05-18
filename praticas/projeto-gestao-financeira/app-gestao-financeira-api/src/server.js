@@ -5,6 +5,7 @@ import { execSync } from "child_process";
 
 import categoriesRouter from "./routes/categories.js";
 import transactionsRouter from "./routes/transactions.js";
+import authRouter from "./routes/auth.js"
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/categories", categoriesRouter);
 app.use("/transactions", transactionsRouter);
+app.use("/auth", )
 
 app.use(errorHandler);
 
