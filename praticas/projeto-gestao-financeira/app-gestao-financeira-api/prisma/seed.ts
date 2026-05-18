@@ -1,5 +1,6 @@
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "./generated/client.ts";
+import bcrypt from "bcrypt";
 
 const adapter = new PrismaMariaDb({
   host: "mysql",
@@ -69,12 +70,18 @@ async function main() {
     });
   }
 
+  const hashedPassword = await bcrypt.hash(defaultUser.password, 10);
+
   await prisma.users.upsert({
     where: { email: defaultUser.email },
-    update: {},
-    create: defaultUser,
-  });
 
+    update: {},
+
+    create: {
+      ...defaultUser,
+      password: hashedPassword,
+    },
+  });
   console.log("Seed concluído.");
 }
 
