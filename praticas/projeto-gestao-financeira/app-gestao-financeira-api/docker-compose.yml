@@ -29,24 +29,5 @@ services:
     depends_on:
       - mysql
 
-  mobile:
-    build:
-      context: ./app-gestao-financeira
-    container_name: expo_app
-    stdin_open: true
-    tty: true
-    ports:
-      - "8081:8081"
-      - "19000:19000"
-      - "19001:19001"
-      - "19002:19002"
-    volumes:
-      - ./app-gestao-financeira:/app
-      - /app/node_modules
-    environment:
-      EXPO_PUBLIC_API_URL: ${EXPO_PUBLIC_API_URL}
-    depends_on:
-      - backend
-
 volumes:
   mysql_data:
