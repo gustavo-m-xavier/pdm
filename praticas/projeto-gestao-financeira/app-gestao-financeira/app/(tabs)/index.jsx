@@ -1,11 +1,11 @@
-import { MoneyContext } from "../../context/GlobalState";
+import { MoneyContext } from "../../context/GlobalState.jsx";
 import { useContext } from "react";
 import { FlatList, Text, View } from "react-native";
 import TransactionItem from "../../components/TransactionItem";
 import { globalStyles } from "../../styles/globalStyles";
 
 export default function Transactions() {
-  const [transactions] = useContext(MoneyContext);
+  const { transactions } = useContext(MoneyContext);
 
   return (
     <View style={globalStyles.screenContainer}>

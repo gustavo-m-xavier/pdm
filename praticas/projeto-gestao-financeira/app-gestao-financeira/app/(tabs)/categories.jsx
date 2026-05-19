@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { MoneyContext } from "../../context/MoneyContext";
+import { MoneyContext } from "../../context/GlobalState.jsx";
 
 const COLORS = [
   "#FFB6B6",
@@ -21,8 +21,7 @@ const COLORS = [
 ];
 
 export default function Categories() {
-  const { categories, addCategory, removeCategory } =
-    useContext(MoneyContext);
+  const { categories, addCategory, removeCategory } = useContext(MoneyContext);
 
   const [name, setName] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -54,39 +53,29 @@ export default function Categories() {
   };
 
   const handleDelete = (item) => {
-    Alert.alert(
-      "Excluir categoria",
-      `Deseja excluir ${item.displayName}?`,
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await removeCategory(item.id);
-            } catch (err) {
-              Alert.alert(
-                "Erro",
-                err?.response?.data?.message ||
-                  "Não foi possível excluir"
-              );
-            }
-          },
+    Alert.alert("Excluir categoria", `Deseja excluir ${item.displayName}?`, [
+      { text: "Cancelar", style: "cancel" },
+      {
+        text: "Excluir",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await removeCategory(item.id);
+          } catch (err) {
+            Alert.alert(
+              "Erro",
+              err?.response?.data?.message || "Não foi possível excluir",
+            );
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.row}>
-        <View
-          style={[
-            styles.icon,
-            { backgroundColor: item.background },
-          ]}
-        />
+        <View style={[styles.icon, { backgroundColor: item.background }]} />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>{item.displayName}</Text>
           <Text style={styles.subtitle}>
@@ -114,26 +103,24 @@ export default function Categories() {
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.sectionTitle}>
-          Criar categoria
-        </Text>
+        <Text style={styles.sectionTitle}>Criar categoria</Text>
 
         <TextInput
-          placeholder="name (ex: health)"
+          placeholder="nome: (ex: health)"
           value={name}
           onChangeText={setName}
           style={styles.input}
         />
 
         <TextInput
-          placeholder="displayName (ex: Saúde)"
+          placeholder="Nome de Exibição: (ex: Saúde)"
           value={displayName}
           onChangeText={setDisplayName}
           style={styles.input}
         />
 
         <TextInput
-          placeholder="icon (ex: favorite)"
+          placeholder="Ícone: (ex: favorite)"
           value={icon}
           onChangeText={setIcon}
           style={styles.input}
@@ -156,15 +143,11 @@ export default function Categories() {
         </View>
 
         <Pressable style={styles.button} onPress={handleCreate}>
-          <Text style={styles.buttonText}>
-            Criar categoria
-          </Text>
+          <Text style={styles.buttonText}>Criar categoria</Text>
         </Pressable>
       </View>
 
-      <Text style={styles.sectionTitle}>
-        Categorias
-      </Text>
+      <Text style={styles.sectionTitle}>Categorias</Text>
 
       <FlatList
         data={categories}

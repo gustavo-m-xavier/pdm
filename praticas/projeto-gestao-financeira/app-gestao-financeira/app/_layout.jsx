@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { colors } from "../constants/colors";
-import GlobalState from "../contexts/GlobalState";
+import GlobalState from "../context/GlobalState.jsx";
 
 export default function RootLayout() {
   return (

@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { MoneyContext } from "../../contexts/GlobalState";
+import { MoneyContext } from "../../context/GlobalState.jsx";
 import { categories } from "../../constants/categories";
 import { globalStyles } from "../../styles/globalStyles";
 import SummaryItem from "../../components/SummaryItem";
@@ -15,7 +15,7 @@ const SUMMARY_CATEGORY_KEYS = [
 ];
 
 export default function Summary() {
-  const [transactions] = useContext(MoneyContext);
+  const { transactions } = useContext(MoneyContext);
 
   /**
    * Calcula totais por categoria e saldo geral em uma única passada O(n) sobre `transactions`.

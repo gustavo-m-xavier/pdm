@@ -14,7 +14,7 @@ import DescriptionInput from "../../components/DescriptionInput";
 import CurrencyInput from "../../components/CurrencyInput";
 import DatePicker from "../../components/DatePicker";
 import CategoryPicker from "../../components/CategoryPicker";
-import { MoneyContext } from "../../contexts/GlobalState";
+import { MoneyContext } from "../../context/GlobalState.jsx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const initialForm = {
@@ -28,7 +28,7 @@ export default function AddTransactions() {
   const [form, setForm] = useState(initialForm);
   const valueInputRef = useRef();
 
-  const [transactions, setTransactions] = useContext(MoneyContext);
+  const { transactions, setTransactions } = useContext(MoneyContext);
 
   const setAsyncStorage = async (data) => {
     try {
