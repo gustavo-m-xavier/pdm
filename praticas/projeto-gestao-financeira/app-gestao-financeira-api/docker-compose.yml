@@ -15,13 +15,13 @@ services:
 
   backend:
     build:
-      context: ./app-gestao-financeira-api
+      context: .
     container_name: backend_api
     restart: always
     ports:
       - "3000:3000"
     volumes:
-      - ./app-gestao-financeira-api:/app
+      - ./app
       - /app/node_modules
     environment:
       PORT: ${PORT}
