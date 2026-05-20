@@ -28,7 +28,7 @@ export default function AddTransactions() {
   const [form, setForm] = useState(initialForm);
   const valueInputRef = useRef();
 
-  const { transactions, setTransactions } = useContext(MoneyContext);
+  const { transactions, addTransaction } = useContext(MoneyContext);
 
   const setAsyncStorage = async (data) => {
     try {
@@ -38,11 +38,11 @@ export default function AddTransactions() {
     }
   };
 
-  const addTransaction = async () => {
+  const newTransaction = async () => {
     const newTransaction = { id: transactions.length + 1, ...form };
     const updatedTransactions = [...transactions, newTransaction];
 
-    setTransactions(updatedTransactions);
+    addTransaction(updatedTransactions);
     setForm(initialForm);
     await setAsyncStorage(updatedTransactions);
 
@@ -67,7 +67,7 @@ export default function AddTransactions() {
             <DatePicker form={form} setForm={setForm} />
             <CategoryPicker form={form} setForm={setForm} />
           </View>
-          <Button onPress={addTransaction}>Adicionar</Button>
+          <Button onPress={newTransaction}>Adicionar</Button>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

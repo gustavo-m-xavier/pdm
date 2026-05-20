@@ -50,7 +50,16 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="add-transactions"
+        name="summary"
+        options={{
+          title: "Resumo",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="pie-chart" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="add-transaction"
         options={{
           title: "Adicionar Transação",
           tabBarLabel: "",
@@ -62,15 +71,6 @@ export default function TabsLayout() {
                 color={colors.primaryContrast}
               />
             </View>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="summary"
-        options={{
-          title: "Resumo",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="pie-chart" size={28} color={color} />
           ),
         }}
       />
