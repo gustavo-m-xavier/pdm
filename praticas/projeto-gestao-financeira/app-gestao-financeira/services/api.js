@@ -36,4 +36,6 @@ export const api = {
   createTransaction: (data)    => request("/transactions",       { method: "POST",   body: JSON.stringify(data) }),
   updateTransaction: (id, d)   => request(`/transactions/${id}`, { method: "PUT",    body: JSON.stringify(d) }),
   deleteTransaction: (id)      => request(`/transactions/${id}`, { method: "DELETE" }),
+
+  login:              (data)   => request('/auth/login',          { mehtod: "POST",   body: JSON.stringify(data) })
 };
