@@ -10,9 +10,9 @@ export default function CategoryPicker({ form, setForm }) {
       <Text style={globalStyles.inputLabel}>Categoria</Text>
       <View style={styles.picker}>
         <Picker
-          selectedValue={form.category}
+          selectedValue={form.categoryId}
           onValueChange={(itemValue) =>
-            setForm({ ...form, category: itemValue })
+            setForm({ ...form, categoryId: itemValue })
           }
         >
           <Picker.Item

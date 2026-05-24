@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   KeyboardAvoidingView,
-  Platform,
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
@@ -17,7 +16,7 @@ import { useRouter } from "expo-router";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { ToastAndroid } from "react-native";
+import { ToastAndroid, Platform } from "react-native";
 
 import { api } from "../services/api";
 
@@ -36,10 +35,7 @@ export default function Login() {
 
   function validateForm() {
     if (!email.trim() || !password.trim()) {
-      ToastAndroid.show(
-        "Preencha todos os campos",
-        ToastAndroid.SHORT
-      );
+      ToastAndroid.show("Preencha todos os campos", ToastAndroid.SHORT);
 
       return false;
     }
@@ -47,10 +43,7 @@ export default function Login() {
     const emailRegex = /\S+@\S+\.\S+/;
 
     if (!emailRegex.test(email)) {
-      ToastAndroid.show(
-        "Email inválido",
-        ToastAndroid.SHORT
-      );
+      ToastAndroid.show("Email inválido", ToastAndroid.SHORT);
 
       return false;
     }
@@ -64,33 +57,26 @@ export default function Login() {
     try {
       setLoading(true);
 
-      const response = await api.login(
-        email,
-        password,
-      );
+      const response = await api.login({ email, password });
 
-      const { user, token } = response.data;
+      const { user, token } = response;
 
       setUser(user);
 
-      await AsyncStorage.setItem(
-        "@user",
-        JSON.stringify(user)
-      );
+      await AsyncStorage.setItem("@user", JSON.stringify(user));
 
       await AsyncStorage.setItem("@token", token);
 
-      ToastAndroid.show(
-        "Login realizado com sucesso!",
-        ToastAndroid.SHORT
-      );
+      if (Platform.OS === "android") {
+        ToastAndroid.show("Login realizado com sucesso!", ToastAndroid.SHORT);
+      } else {
+        alert("Login realizado com sucesso!");
+      }
 
       router.replace("/");
     } catch (error) {
-      ToastAndroid.show(
-        "Email ou senha inválidos",
-        ToastAndroid.SHORT
-      );
+      console.log(error);
+      ToastAndroid.show("Email ou senha inválidos", ToastAndroid.SHORT);
     } finally {
       setLoading(false);
     }
@@ -106,9 +92,7 @@ export default function Login() {
           <View style={styles.header}>
             <Text style={styles.title}>Bem-vindo</Text>
 
-            <Text style={styles.subtitle}>
-              Faça login para continuar
-            </Text>
+            <Text style={styles.subtitle}>Faça login para continuar</Text>
           </View>
 
           <View style={styles.form}>
@@ -132,19 +116,14 @@ export default function Login() {
             />
 
             <TouchableOpacity
-              style={[
-                styles.button,
-                loading && styles.buttonDisabled,
-              ]}
+              style={[styles.button, loading && styles.buttonDisabled]}
               onPress={handleLogin}
               disabled={loading}
             >
               {loading ? (
                 <ActivityIndicator color="#FFF" />
               ) : (
-                <Text style={styles.buttonText}>
-                  Entrar
-                </Text>
+                <Text style={styles.buttonText}>Entrar</Text>
               )}
             </TouchableOpacity>
           </View>

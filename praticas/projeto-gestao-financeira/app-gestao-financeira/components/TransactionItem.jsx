@@ -17,7 +17,7 @@ export default function TransactionItem({
   return (
     <>
       <View style={styles.itemContainer}>
-        <CategoryItem category={category} />
+        <CategoryItem category={category.name} />
         <View style={styles.textContainer}>
           <Text style={globalStyles.secondaryText}>
             {new Date(date).toLocaleDateString("pt-BR")}

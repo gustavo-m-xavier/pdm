@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { MoneyContext } from "../../context/GlobalState.jsx";
+import CategoryItem from "../../components/CategoryItem.jsx";
 
 const COLORS = [
   "#FFB6B6",
@@ -75,7 +76,7 @@ export default function Categories() {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.row}>
-        <View style={[styles.icon, { backgroundColor: item.background }]} />
+        <CategoryItem category={item.name} />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>{item.displayName}</Text>
           <Text style={styles.subtitle}>
@@ -91,11 +92,9 @@ export default function Categories() {
           </View>
         </View>
 
-        {!item.isDefault && (
-          <Pressable onPress={() => handleDelete(item)}>
-            <Text style={styles.delete}>Excluir</Text>
-          </Pressable>
-        )}
+        <Pressable onPress={() => handleDelete(item)}>
+          <Text style={styles.delete}>Excluir</Text>
+        </Pressable>
       </View>
     </View>
   );

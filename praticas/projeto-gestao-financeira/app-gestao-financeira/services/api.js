@@ -27,15 +27,21 @@ async function request(path, options = {}) {
 }
 
 export const api = {
-  listCategories:    ()        => request("/categories"),
-  createCategory:    (data)    => request("/categories",        { method: "POST",   body: JSON.stringify(data) }),
-  updateCategory:    (id, d)   => request(`/categories/${id}`,  { method: "PUT",    body: JSON.stringify(d) }),
-  deleteCategory:    (id)      => request(`/categories/${id}`,  { method: "DELETE" }),
+  listCategories: () => request("/categories"),
+  createCategory: (data) =>
+    request("/categories", { method: "POST", body: JSON.stringify(data) }),
+  updateCategory: (id, d) =>
+    request(`/categories/${id}`, { method: "PUT", body: JSON.stringify(d) }),
+  deleteCategory: (id) => request(`/categories/${id}`, { method: "DELETE" }),
 
-  listTransactions:  ()        => request("/transactions"),
-  createTransaction: (data)    => request("/transactions",       { method: "POST",   body: JSON.stringify(data) }),
-  updateTransaction: (id, d)   => request(`/transactions/${id}`, { method: "PUT",    body: JSON.stringify(d) }),
-  deleteTransaction: (id)      => request(`/transactions/${id}`, { method: "DELETE" }),
+  listTransactions: () => request("/transactions"),
+  createTransaction: (data) =>
+    request("/transactions", { method: "POST", body: JSON.stringify(data) }),
+  updateTransaction: (id, d) =>
+    request(`/transactions/${id}`, { method: "PUT", body: JSON.stringify(d) }),
+  deleteTransaction: (id) =>
+    request(`/transactions/${id}`, { method: "DELETE" }),
 
-  login:              (data)   => request('/auth/login',          { mehtod: "POST",   body: JSON.stringify(data) })
+  login: (data) =>
+    request("/auth/login", { method: "POST", body: JSON.stringify(data) }),
 };

@@ -1,7 +1,6 @@
 import {
   View,
   ScrollView,
-  Alert,
   StyleSheet,
   KeyboardAvoidingView,
   Keyboard,
@@ -16,12 +15,15 @@ import DatePicker from "../../components/DatePicker";
 import CategoryPicker from "../../components/CategoryPicker";
 import { MoneyContext } from "../../context/GlobalState.jsx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { categories } from "../../constants/categories.js";
+import { showMessage } from "../../utils/showMessage.js";
+import { api } from "../../services/api.js";
 
 const initialForm = {
   description: "",
   value: 0,
   date: new Date(),
-  category: "Renda",
+  categoryId: categories.income.name,
 };
 
 export default function AddTransactions() {
@@ -38,15 +40,18 @@ export default function AddTransactions() {
     }
   };
 
-  const newTransaction = async () => {
-    const newTransaction = { id: transactions.length + 1, ...form };
-    const updatedTransactions = [...transactions, newTransaction];
+  const createTransaction = async () => {
+    try {
+      await addTransaction(form);
 
-    addTransaction(updatedTransactions);
-    setForm(initialForm);
-    await setAsyncStorage(updatedTransactions);
+      setForm(initialForm);
 
-    Alert.alert("Sucesso!", "Transação adicionada com sucesso!");
+      showMessage("Sucesso!", "Transação adicionada com sucesso!");
+    } catch (error) {
+      console.log(error);
+
+      showMessage("Erro", "Não foi possível criar a transação.");
+    }
   };
 
   return (
@@ -67,7 +72,7 @@ export default function AddTransactions() {
             <DatePicker form={form} setForm={setForm} />
             <CategoryPicker form={form} setForm={setForm} />
           </View>
-          <Button onPress={newTransaction}>Adicionar</Button>
+          <Button onPress={createTransaction}>Adicionar</Button>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
