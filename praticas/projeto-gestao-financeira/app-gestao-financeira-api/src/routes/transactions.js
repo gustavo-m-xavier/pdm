@@ -15,32 +15,52 @@ router.get("/", async (req, res, next) => {
       orderBy: { date: "desc" },
     });
     res.json(transactions);
-  } catch (e) { next(e); }
+  } catch (e) {
+    next(e);
+  }
 });
 
 // POST /transactions - cria uma nova transação
 router.post("/", async (req, res, next) => {
   try {
     const data = createTransactionSchema.parse(req.body);
+
+    const category = await prisma.category.findUnique({
+      where: { name: data.categoryId },
+    });
+
+    if (!category) {
+      return res.status(404).json({
+        error: "Categoria não encontrada",
+      });
+    }
+
     const transaction = await prisma.transaction.create({
-      data,
+      data: { ...data, categoryId: category.id },
       include: { category: true },
     });
     res.status(201).json(transaction);
-  } catch (e) { next(e); }
+  } catch (e) {
+    next(e);
+  }
 });
 
 // PUT /transactions/:id
 router.put("/:id", async (req, res, next) => {
   try {
     const data = updateTransactionSchema.parse(req.body);
+    const category = await prisma.category.findUnique({
+      where: { name: data.categoryId },
+    });
     const transaction = await prisma.transaction.update({
       where: { id: req.params.id },
-      data,
+      data: { ...data, categoryId: category.id },
       include: { category: true },
     });
     res.json(transaction);
-  } catch (e) { next(e); }
+  } catch (e) {
+    next(e);
+  }
 });
 
 // DELETE /transactions/:id
@@ -48,7 +68,9 @@ router.delete("/:id", async (req, res, next) => {
   try {
     await prisma.transaction.delete({ where: { id: req.params.id } });
     res.status(204).send();
-  } catch (e) { next(e); }
+  } catch (e) {
+    next(e);
+  }
 });
 
 export default router;
