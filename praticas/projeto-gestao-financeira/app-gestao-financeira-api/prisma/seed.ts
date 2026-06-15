@@ -1,0 +1,93 @@
+import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaClient } from "./generated/client.ts";
+import bcrypt from "bcrypt";
+
+const adapter = new PrismaMariaDb({
+  host: "mysql",
+  user: "app_user",
+  password: "app_password",
+  port: 3306,
+  database: "gestao_financeira",
+  connectionLimit: 5,
+});
+const prisma = new PrismaClient({ adapter });
+
+const defaultCategories = [
+  {
+    name: "income",
+    displayName: "Renda",
+    icon: "work",
+    background: "#DE9AC3",
+    isIncome: true,
+    isDefault: true,
+  },
+  {
+    name: "food",
+    displayName: "Alimentação",
+    icon: "fastfood",
+    background: "#DEA17B",
+    isIncome: false,
+    isDefault: true,
+  },
+  {
+    name: "house",
+    displayName: "Casa",
+    icon: "home",
+    background: "#E6E088",
+    isIncome: false,
+    isDefault: true,
+  },
+  {
+    name: "education",
+    displayName: "Educação",
+    icon: "book",
+    background: "#AB8FBE",
+    isIncome: false,
+    isDefault: true,
+  },
+  {
+    name: "travel",
+    displayName: "Viagens",
+    icon: "airplanemode-active",
+    background: "#82C9DE",
+    isIncome: false,
+    isDefault: true,
+  },
+];
+
+const defaultUser = {
+  name: "Usuário Padrão",
+  email: "usuario.padrao@exemplo.com",
+  password: "senhaPadrao123",
+};
+
+async function main() {
+  for (const c of defaultCategories) {
+    await prisma.category.upsert({
+      where: { name: c.name },
+      update: {},
+      create: c,
+    });
+  }
+
+  const hashedPassword = await bcrypt.hash(defaultUser.password, 10);
+
+  await prisma.users.upsert({
+    where: { email: defaultUser.email },
+
+    update: {},
+
+    create: {
+      ...defaultUser,
+      password: hashedPassword,
+    },
+  });
+  console.log("Seed concluído.");
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(() => prisma.$disconnect());
